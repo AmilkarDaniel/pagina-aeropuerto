@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
@@ -20,21 +18,29 @@ return new class extends Migration
             $table->string('cargo');
             $table->string('rol');
 
+            //relacion con area 1:N
+            $table->unsignedBigInteger('area_id')->nullable();
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('set null');
+
             //campos de auditoria:
             $table->unsignedBigInteger('ca_idUsuario');
             $table->string('ca_tipo');
             $table->boolean('ca_estado');
 
             $table->rememberToken();
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');
     }
 };
+
+/* quien es el gerente 
+cuando se a iniciado
+historia 
+queienes son los directores
+login */

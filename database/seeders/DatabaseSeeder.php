@@ -14,15 +14,20 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        /* \App\Models\Area::factory()->create([
+            'nombre' => 'sistemas',
+        ]); */
         \App\Models\User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123456'),
             'cargo' => 'pasante',
             'rol' => 'admin',
+            'area_id' => 1,
             'ca_idUsuario' => 1,
             'ca_tipo' => 'admin',
             'ca_estado' => true,
         ]);
+        
     }
 }
