@@ -20,6 +20,9 @@ class AreaController extends Controller
         try{
             $area = new Area();
             $area->nombre = $request->nombre;
+            $area->ca_idUsuario = $request->ca_idUsuario;
+            $area->ca_tipo = $request->ca_tipo;
+            $area->ca_estado = $request->ca_estado;
             $area->save();
             return response()->json(['status'=>true,'message'=>'Area '.$area->nombre.' creada.']);
         }catch(\Exception $exc){
@@ -44,6 +47,9 @@ class AreaController extends Controller
         try{
             $area = Area::findOrFail($id);
             $area->nombre = $request->nombre;
+            $area->ca_idUsuario = $request->ca_idUsuario;
+            $area->ca_tipo = $request->ca_tipo;
+            $area->ca_estado = $request->ca_estado;
             $area->save();
             return response()->json(['status'=>true,'message'=>'Area '.$area->nombre.' actualizado']);
         }catch(\Exception $exc){

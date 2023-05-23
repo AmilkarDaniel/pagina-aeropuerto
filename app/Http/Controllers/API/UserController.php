@@ -71,6 +71,7 @@ class UserController extends Controller
                 $user->email = $request->email;
                 $user->password = bcrypt($request->password);
                 $user->cargo = $request->cargo;
+                $user->foto = $request->foto;
                 $user->rol_id = $request->rol_id;
                 $user->area_id = $request->area_id;
                 $user->ca_idUsuario = $request->ca_idUsuario;
