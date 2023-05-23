@@ -30,8 +30,13 @@ class AreaController extends Controller
 
     public function show(string $id)
     {
-        $area = Area::find($id);
-        return response()->json($area);        
+        try{
+            $area = Area::find($id);
+            return response()->json($area);        
+        }catch(\Exception $exc){
+            return response()->json(['status'=>false,'message'=>'Error']);
+            //return $exc;
+        }
     }
 
     public function update(Request $request, string $id)

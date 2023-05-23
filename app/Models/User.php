@@ -19,7 +19,9 @@ class User extends Authenticatable
         'email',
         'password',
         'cargo',
-        'rol',
+        'foto',
+        'rol_id',
+        'area_id',
         'ca_idUsuario',
         'ca_tipo',
         'ca_estado',
@@ -34,3 +36,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 }
+

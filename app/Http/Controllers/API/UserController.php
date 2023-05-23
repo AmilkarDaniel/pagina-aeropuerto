@@ -6,19 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-//use Auth;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     
-    public function loginUser(Request $request): Response
+    public function loginUser(Request $request)
     {
-        $input = $request->all();
-        Auth::attempt($input);
-        $user = Auth::user();
-        $token = $user->createToken('example')->accessToken;
-        return Response(['status' => 200,'token' => $token],200);
+        //$input = $request->all();
+        // Auth::attempt($input);
+
+        if (Auth::attempt(['email' => $request->input('usuario'), 'password' => $request->input('contraseña')])) {
+            $user = Auth::user();
+            $token = $user->createToken('example')->accessToken;
+            return Response(['status' => 'OK','token' => $token],200);
+        } else {
+            return Response(['status' => 'NOK','token' => 'Datos Incorrectos'],401);
+        }
+        
     }
 
     public function getUserDetail(): Response
@@ -44,7 +49,6 @@ class UserController extends Controller
         }
     }
 
-    //************** METODO PARA VIZUALIZAR TODOS LOS REGISTROS */
     public function index()
     {
         if(Auth::guard('api')->check()){
@@ -58,7 +62,6 @@ class UserController extends Controller
         }
     }
     
-    //************ METODO PARA GUARDAR REGISTRO */
     public function store(Request $request)
     {
         if(Auth::guard('api')->check()){
@@ -68,7 +71,8 @@ class UserController extends Controller
                 $user->email = $request->email;
                 $user->password = bcrypt($request->password);
                 $user->cargo = $request->cargo;
-                $user->rol = $request->rol;
+                $user->rol_id = $request->rol_id;
+                $user->area_id = $request->area_id;
                 $user->ca_idUsuario = $request->ca_idUsuario;
                 $user->ca_tipo = $request->ca_tipo;
                 $user->ca_estado = $request->ca_estado;
@@ -83,7 +87,6 @@ class UserController extends Controller
         }
     }
     
-    //************* METODO PARA BUSCAR UN REGISTRO ATRAVEZ DE ID */
     public function show($id)
     {
         if(Auth::guard('api')->check()){
@@ -94,7 +97,6 @@ class UserController extends Controller
         }
     }
     
-    //************* METODO PARA ACTUALIZAR UN REGISTRO */
     public function update(Request $request, $id)
     {
         if(Auth::guard('api')->check()){
@@ -103,7 +105,9 @@ class UserController extends Controller
                 $user->name = $request->name;
                 $user->password = bcrypt($request->password);
                 $user->cargo = $request->cargo;
-                $user->rol = $request->rol;
+                $user->foto = $request->foto;
+                $user->rol_id = $request->rol_id;
+                $user->area_id = $request->area_id;
                 $user->ca_idUsuario = $request->ca_idUsuario;
                 $user->ca_tipo = $request->ca_tipo;
                 $user->ca_estado = $request->ca_estado;

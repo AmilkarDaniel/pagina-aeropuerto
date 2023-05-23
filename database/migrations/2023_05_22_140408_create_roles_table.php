@@ -6,13 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('areas', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            //campos de auditoria:
+            $table->string('tipo');
             $table->integer('ca_idUsuario');
             $table->string('ca_tipo');
             $table->boolean('ca_estado');
@@ -20,8 +21,11 @@ return new class extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('roles');
     }
 };
