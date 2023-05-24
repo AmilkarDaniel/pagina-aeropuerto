@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('contenido_multimedia', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_noticia');
             $table->longText('archivo');
             $table->integer('ca_idUsuario');
             $table->string('ca_tipo');

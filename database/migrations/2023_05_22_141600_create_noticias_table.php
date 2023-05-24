@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->longText('detalle');
-            $table->boolean('prioridad');
+            $table->integer('prioridad');
             $table->date('vigenciaI');
             $table->date('vigenciaF');
-            $table->integer('multimedia_id');
             $table->integer('user_id');
             $table->integer('ca_idUsuario');
             $table->string('ca_tipo');

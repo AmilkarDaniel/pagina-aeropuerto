@@ -12,6 +12,7 @@ class Multimedia extends Model
     public $table = 'contenido_multimedia';
 
     protected $fillable = [
+        'id_noticia',
         'archivo',
         'ca_idUsuario',
         'ca_tipo',
