@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
+        /* \App\Models\User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123456'),
@@ -25,7 +25,18 @@ class DatabaseSeeder extends Seeder
             'ca_idUsuario' => 1,
             'ca_tipo' => 'admin',
             'ca_estado' => true,
+        ]); */
+        \App\Models\User::factory()->create([
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'password' => bcrypt('654321'),
+            'cargo' => 'pasante1',
+            'foto' => 'foto2',
+            'rol_id' => 2,
+            'area_id' => 2,
+            'ca_idUsuario' => 2,
+            'ca_tipo' => 'user',
+            'ca_estado' => true,
         ]);
-        
     }
 }

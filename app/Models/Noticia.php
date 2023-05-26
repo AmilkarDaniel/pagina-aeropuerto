@@ -17,7 +17,6 @@ class Noticia extends Model
         'prioridad',
         'vigenciaI',
         'vigenciaF',
-        'multimedia_id',
         'user_id',
         'ca_idUsuario',
         'ca_tipo',

@@ -35,6 +35,11 @@ Route::controller(AreaController::class)->group(function(){
 Route::controller(NoticiaController::class)->group(function(){
     Route::get('noticias','index');
     Route::post('noticia','store');
+    Route::get('noticia/{id}','show');
+    Route::get('noticias/destacadas','noticiasDestacadas');
+    Route::get('noticias/all','noticiasArea');
+
+
 });
 
 Route::controller(MultimediaController::class)->group(function(){
