@@ -21,22 +21,23 @@ Route::controller(UserController::class)->group(function(){
     Route::get('users','index');
     Route::post('users','store');
     Route::get('users/{id}','show');
-    Route::put('users/{id}','update');
-    Route::put('user/delete/{id}','destroy');
+    Route::put('user/{id}','update');
+    Route::put('eliminar/user/{id}','destroy');
 })->middleware('auth:api');
 
 Route::controller(AreaController::class)->group(function(){
     Route::get('areas','index');
-    Route::post('areas','store');
-    Route::get('areas/{id}','show');
-    Route::put('areas/{id}','update');
+    Route::post('area','store');
+    Route::get('area/{id}','show');
+    Route::put('area/{id}','update');
+    Route::put('eliminar/area/{id}','destroy');
 })->middleware('auth:api');
 
 Route::controller(NoticiaController::class)->group(function(){
     Route::get('noticias','index');
     Route::post('noticia','store');
     Route::get('noticia/{id}','show');
-    Route::put('noticia/eliminar/{id}','destroy');
+    Route::put('eliminar/noticia/{id}','destroy');
     Route::put('noticia/{id}','update');
     Route::get('noticias/destacadas','noticiasDestacadas');
     Route::get('noticias/area','noticiasArea');
