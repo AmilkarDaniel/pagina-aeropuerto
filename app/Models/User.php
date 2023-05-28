@@ -22,14 +22,17 @@ class User extends Authenticatable
         'foto',
         'rol_id',
         'area_id',
-        'ca_idUsuario',
-        'ca_tipo',
-        'ca_estado',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'ca_idUsuario',
+        'ca_tipo',
+        'ca_estado',
+        'created_at',
+        'updated_at',
+        'email_verified_at',
     ];
 
     protected $casts = [
