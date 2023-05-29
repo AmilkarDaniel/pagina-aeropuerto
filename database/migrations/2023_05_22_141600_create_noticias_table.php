@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('noticias', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->longText('detalle');
+            $table->longText('detalle')->nullable();
             $table->integer('prioridad');
             $table->date('vigenciaI');
             $table->date('vigenciaF');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('cargo');
-            $table->longText('foto');
+            $table->longText('foto')->nullable();
             $table->integer('rol_id');
             
             //relacion con area 1:N

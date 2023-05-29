@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('contenido_multimedia', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_noticia');
-            $table->longText('archivo');
+            $table->integer('id_noticia')->nullable();
+            $table->longText('archivo')->nullable();
             $table->integer('ca_idUsuario');
             $table->string('ca_tipo');
             $table->boolean('ca_estado');

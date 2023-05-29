@@ -14,4 +14,12 @@ class Area extends Model
         'ca_tipo',
         'ca_estado',
     ];
+
+    protected $hidden = [
+        'ca_idUsuario',
+        'ca_tipo',
+        'ca_estado',
+        'created_at',
+        'updated_at',
+    ];
 }

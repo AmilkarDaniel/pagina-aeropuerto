@@ -45,4 +45,7 @@ Route::controller(NoticiaController::class)->group(function(){
 
 Route::controller(MultimediaController::class)->group(function(){
     Route::get('multimedias','index');
+    Route::get('multimedia','store');
+    Route::post('multimedia/{id}','store');
+    Route::get('multimedia/{id}','show');
 })->middleware('auth:api');
