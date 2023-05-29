@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Models\Area;
-use App\Models\Rol;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\Rol;
+use App\Models\Area;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -42,7 +43,7 @@ class UserController extends Controller
     {
         if(Auth::guard('api')->check()){
             $accessToken = Auth::guard('api')->user()->token();
-            \DB::table('oauth_refresh_tokens')
+            DB::table('oauth_refresh_tokens')
             ->where('access_token_id', $accessToken->id)
             ->update(['revoked' => true]);
             $accessToken->revoke();
