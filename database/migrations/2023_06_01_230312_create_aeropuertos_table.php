@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('area_rol', function (Blueprint $table) {
+        Schema::create('aeropuertos', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
-            $table->integer('ca_idUsuario');
-            $table->string('ca_tipo');
-            $table->boolean('ca_estado');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('area_rol');
+        Schema::dropIfExists('aeropuertos');
     }
 };
