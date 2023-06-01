@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('area_rol', function (Blueprint $table) {
             $table->id();
-            $table->integer('rol_id');
-            $table->
+            $table->string('tipo');
+            $table->integer('ca_idUsuario');
+            $table->string('ca_tipo');
+            $table->boolean('ca_estado');
             $table->timestamps();
         });
     }

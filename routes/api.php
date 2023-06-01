@@ -44,8 +44,8 @@ Route::controller(NoticiaController::class)->group(function(){
     Route::get('noticias/area','noticiasArea');
 })->middleware('auth:api');
 
-Route::controller(NoticiaController::class)->group(function(){
-    Route::get('noti','noticias');
+Route::controller(UserController::class)->group(function(){
+    Route::get('visitante','tokenVisitante');
 });
 
 Route::controller(MultimediaController::class)->group(function(){
@@ -54,3 +54,5 @@ Route::controller(MultimediaController::class)->group(function(){
     Route::post('multimedia/{id}','store');
     Route::get('multimedia/{id}','show');
 })->middleware('auth:api');
+
+

@@ -15,7 +15,28 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    
+
+    // Inicio. Genera token visitante
+    public function tokenVisitante(Request $request)
+    {
+        if (Auth::attempt(['email' => 'visitante@visitante.com', 'password' => '123456'])) {
+            $visitante = Auth::user();
+            $token = $visitante->createToken($visitante->name)->accessToken;
+            $tokenId = DB::table('oauth_access_tokens')
+                ->where('user_id', $visitante->id)
+                ->orderBy('created_at', 'desc')
+                ->first()
+                ->id;
+            DB::table('oauth_access_tokens')
+                ->where('id', $tokenId)
+                ->update(['expires_at' => null]);
+            return Response(['status' => 'OK','token' => $token,'tipo' => $rol->tipo],200);
+        } else {
+            return Response(['status' => 'NOK','token' => 'Datos Incorrectos'],401);
+        }
+    }
+    // Fin. Genera token visitante
+
     public function loginUser(Request $request)
     {
         //$input = $request->all();
@@ -24,8 +45,9 @@ class UserController extends Controller
             $user = Auth::user();
             $token = $user->createToken($user->name)->accessToken;
             $area = Area::where('id', $user->area_id)->first();
-            return Response(['status' => 'OK','token' => $token,'nombre' => $user->name,'foto' => $user->foto, 'area' => $area->nombre],200);
-        } else {
+            $rol = Rol::where('id', $user->rol_id)->first();
+            return Response(['status' => 'OK','token' => $token,'nombre' => $user->name,'foto' => $user->foto, 'area' => $area->nombre, 'rol' => $rol->tipo],200);
+        } else {    
             return Response(['status' => 'NOK','token' => 'Datos Incorrectos'],401);
         }
     }
