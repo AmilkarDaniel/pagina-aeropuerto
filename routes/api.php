@@ -13,6 +13,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(UserController::class)->group(function(){
     Route::post('login','loginUser');
+    Route::get('token','tokenActivo');
 });
 
 Route::controller(UserController::class)->group(function(){
@@ -42,6 +43,10 @@ Route::controller(NoticiaController::class)->group(function(){
     Route::get('noticias/destacadas','noticiasDestacadas');
     Route::get('noticias/area','noticiasArea');
 })->middleware('auth:api');
+
+Route::controller(NoticiaController::class)->group(function(){
+    Route::get('noti','noticias');
+});
 
 Route::controller(MultimediaController::class)->group(function(){
     Route::get('multimedias','index');

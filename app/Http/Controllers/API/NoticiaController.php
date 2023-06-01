@@ -14,6 +14,24 @@ use Illuminate\Support\Carbon;
 
 class NoticiaController extends Controller
 {
+    public function noticias(){
+        try{
+            /* $noticias = Noticia::all(); */
+            $noticias = Noticia::orderBy('vigenciaI', 'desc')->where('ca_estado', true)->get();
+            $noticiasCompletas = [];
+            foreach ($noticias as $noticia){
+                $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
+                $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
+                $not = ['id' => $noticia->id, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle, 'fecha' => $noticia->vigenciaI];
+                $noticiaMultimedia = array_merge($not, $mult);
+                $noticiasCompletas[] = $noticiaMultimedia;
+            }
+            return response()->json($noticiasCompletas, 200);
+        }catch(\Exception $exc){
+            return response()->json(['status'=>'NOK','message'=>'Error']);
+            //return $exc;
+        }
+    }
     //!-------------Muestra todas las noticias segun fecha reciente------------------
     public function index()
     {
@@ -195,7 +213,10 @@ class NoticiaController extends Controller
             //recopiladno datos de usuario
                 $user = Auth::guard('api')->user();
                 $noticia = Noticia::findOrFail($id);
+                $noticia->ca_idUsuario = $user->id;
+                $noticia->ca_tipo = "delete";
                 $noticia->ca_estado = false;
+
                 $res = $noticia->save();
                 if (!$res == 1) {
                     return 'error';

@@ -23,11 +23,11 @@ class UserController extends Controller
         if (Auth::attempt(['email' => $request->input('usuario'), 'password' => $request->input('contraseña')])) {
             $user = Auth::user();
             $token = $user->createToken($user->name)->accessToken;
-            return Response(['status' => 'OK','token' => $token],200);
+            $area = Area::where('id', $user->area_id)->first();
+            return Response(['status' => 'OK','token' => $token,'nombre' => $user->name,'foto' => $user->foto, 'area' => $area->nombre],200);
         } else {
             return Response(['status' => 'NOK','token' => 'Datos Incorrectos'],401);
         }
-        
     }
 
     public function getUserDetail(): Response
@@ -53,6 +53,13 @@ class UserController extends Controller
         }
     }
 
+    public function tokenActivo(): Response
+    {
+        if(Auth::guard('api')->check()){
+            return Response(['status' => 'OK'],200);    
+        }
+        return Response(['status' => 'NOK'],401);
+    }
 
     //!-----------muestra a todos los usuarios con su area y su rol----------
     public function index()
