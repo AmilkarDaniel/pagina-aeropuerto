@@ -172,9 +172,9 @@ class NoticiaController extends Controller
                 //recopiladno datos de usuario
                 $user = Auth::guard('api')->user();
                 $noticia = Noticia::findOrFail($id);
-                $noticia->titulo = $request->titulo;
+                $noticia->titulo = $request->input('titulo');
                 $noticia->detalle = $request->input('descripcion');
-                $noticia->prioridad = $request->prioridad;
+                $noticia->prioridad = $request->input('prioridad');
                 $noticia->ca_idUsuario = $user->id;
                 $noticia->ca_tipo = "update";
                 $noticia->ca_estado = true;
