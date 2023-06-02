@@ -25,6 +25,9 @@ return new class extends Migration
             $table->longText('ap_sust_quimicas')->nullable();
             $table->longText('ap_mat_peligroso')->nullable();
             $table->longText('ap_sust_explosivas')->nullable();
+            $table->integer('ca_idUsuario');
+            $table->string('ca_tipo');
+            $table->boolean('ca_estado');
             $table->timestamps();
         });
     }

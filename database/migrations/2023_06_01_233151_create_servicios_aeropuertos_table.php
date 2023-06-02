@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('nombre');
             $table->longText('imagen')->nullable();
             $table->longText('descripcion')->nullable();
+            $table->integer('ca_idUsuario');
+            $table->string('ca_tipo');
+            $table->boolean('ca_estado');
             $table->timestamps();
         });
     }

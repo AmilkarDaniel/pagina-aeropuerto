@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('aeropuertos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->integer('ca_idUsuario');
+            $table->string('ca_tipo');
+            $table->boolean('ca_estado');
             $table->timestamps();
         });
     }

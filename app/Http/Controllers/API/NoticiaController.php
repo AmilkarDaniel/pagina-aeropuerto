@@ -93,7 +93,17 @@ class NoticiaController extends Controller
                 $multimedia->ca_tipo = "create";
                 $multimedia->ca_estado = true;
                 $multimedia->save();
-                return response()->json(['status' => 'OK', 'messagge' => 'Noticia creada'], 201);            
+
+                //mostrar la noticia creada
+                $noti = Noticia::where('ca_estado', true)->find($noticia->id);
+                $multimedia = Multimedia::where('id_noticia',$noticia->id)->first();
+                $mult = ['multimedia_id'=>$multimedia->id,'imagen'=>$multimedia->archivo];
+                $not = ['id' => $noti->id, 'titulo'=>$noti->titulo,'descripcion'=>$noti->detalle,'fecha'=>$noti->vigenciaI];
+                $noticiaMultimedia = array_merge($not,$mult);
+                $noticiaCompleta = json_encode($noticiaMultimedia, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                $noticiaCompleta = json_decode($noticiaCompleta, false, 512, JSON_UNESCAPED_UNICODE);
+                //fin mostrar la notici creada
+                return response()->json(['status' => 'OK', 'messagge' => 'Noticia creada', 'noticia' => $noticiaCompleta], 201);            
             }catch(\Exception $exc){
                 return response()->json(['status'=>'NOK','message'=>'Error']);
                 //return $exc;
