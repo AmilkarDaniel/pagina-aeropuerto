@@ -6,6 +6,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\AreaController;
 use App\Http\Controllers\API\MultimediaController;
 use App\Http\Controllers\API\NoticiaController;
+use App\Http\Controllers\API\AeropuertoController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -50,9 +51,14 @@ Route::controller(UserController::class)->group(function(){
 
 Route::controller(MultimediaController::class)->group(function(){
     Route::get('multimedias','index');
-    Route::get('multimedia','store');
-    Route::post('multimedia/{id}','store');
+    //Route::get('multimedia','store');
+    Route::post('multimedia','store');
     Route::get('multimedia/{id}','show');
 })->middleware('auth:api');
 
+Route::controller(AeropuertoController::class)->group(function(){
+    Route::post('aeropuerto','store'); //registrar aeropuerto
+    Route::put('eliminar/aeropuerto/{id}','destroy'); //dar de bajaaeropuerto
+    Route::put('aeropuerto/{id}','update'); //modificar aeropuerto
+});
 
