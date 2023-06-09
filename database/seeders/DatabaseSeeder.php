@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Multimedia;
 use App\Models\Noticia;
 use Illuminate\Database\Seeder;
 
@@ -33,7 +34,8 @@ class DatabaseSeeder extends Seeder
         
         // $this->call (AeropuertoSeeder::class);
 
-        //Noticia::factory(30)->create();
+        Multimedia::factory(50)->create();
+        Noticia::factory(50)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'User',

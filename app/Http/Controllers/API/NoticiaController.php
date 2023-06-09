@@ -80,7 +80,7 @@ class NoticiaController extends Controller
             foreach ($noticias as $noticia) {
                 $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
                 $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
-                $not = ['id' => $noticia->id, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle, 'fecha' => $noticia->vigenciaI, 'prioridad' => $noticia->prioridad];
+                $not = ['id' => $noticia->id, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle, 'fecha' => $noticia->vigenciaI];
                 $noticiaMultimedia = array_merge($not, $mult);
                 $noticiasCompletas[] = $noticiaMultimedia;
             }
