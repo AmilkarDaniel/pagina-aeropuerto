@@ -36,13 +36,21 @@ Route::controller(AreaController::class)->group(function(){
 })->middleware('auth:api');
 
 Route::controller(NoticiaController::class)->group(function(){
-    Route::get('noticias','index');
-    Route::post('noticia','store');
+    Route::get('noticias','aComunicacion');
+    Route::get('post_legal','aLegal');
+});
+
+Route::controller(NoticiaController::class)->group(function(){
+    //Route::get('noticia','index');
+    //solo una url controlarlo en el public con un switch en el request te mandara lo que quiere realizar como delete update create
+    //en consultora si o si todas las rutas documentadas y validar protocolos
+    //si amnejas front front apache o puerto 800 
+    Route::post('noticia_create','store');
     Route::get('noticia/{id}','show');
-    Route::put('eliminar/noticia/{id}','destroy');
-    Route::put('noticia/{id}','update');
-    Route::get('noticias/destacadas','noticiasDestacadas');
-    Route::get('noticias/area','noticiasArea');
+    Route::put('noticia_delete/{id}','destroy');
+    Route::put('noticia_update/{id}','update');
+    Route::get('noticias_destacadas','noticiasDestacadas');
+    Route::get('noticias_area','noticiasArea');
 })->middleware('auth:api');
 
 Route::controller(UserController::class)->group(function(){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\Noticia;
 use App\Models\Multimedia;
 use App\Models\User;
@@ -15,32 +16,84 @@ use Illuminate\Support\Carbon;
 class NoticiaController extends Controller
 {
     
-    //!-------------Muestra todas las noticias segun fecha reciente------------------
-    public function index()
+    //inicio. ver post's
+    // public function index()
+    // {
+    //     if(Auth::guard('api')->check()){
+    //         try{
+    //             /* $noticias = Noticia::all(); */
+    //             $noticias = Noticia::orderBy('vigenciaI', 'desc')->where('ca_estado', true)->get();
+    //             $noticiasCompletas = [];
+    //             foreach ($noticias as $noticia){
+    //                 $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
+    //                 $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
+    //                 $not = ['id' => $noticia->id, 'prioridad' => $noticia->prioridad, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle, 'fecha' => $noticia->vigenciaI];
+    //                 //$not = ['id' => $noticia->id, 'tipo' => $noticia->tipo, 'prioridad' => $noticia->prioridad, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle, 'fecha' => $noticia->vigenciaI];
+    //                 $noticiaMultimedia = array_merge($not, $mult);
+    //                 $noticiasCompletas[] = $noticiaMultimedia;
+    //             }
+    //             return response()->json($noticiasCompletas, 200);
+    //         }catch(\Exception $exc){
+    //             return response()->json(['status'=>'NOK','message'=>'Error']);
+    //             //return $exc;
+    //         }
+    //     }else{
+    //         return Response(['data' => 'Unauthorized'],401);
+    //     }
+    // }
+    //fin. ver post's
+    
+    //inicio. ver post del area de comunicación 
+    public function aComunicacion()
     {
-        if(Auth::guard('api')->check()){
-            try{
-                /* $noticias = Noticia::all(); */
-                $noticias = Noticia::orderBy('vigenciaI', 'desc')->where('ca_estado', true)->get();
-                $noticiasCompletas = [];
-                foreach ($noticias as $noticia){
-                    $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
-                    $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
-                    $not = ['id' => $noticia->id, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle, 'fecha' => $noticia->vigenciaI];
-                    $noticiaMultimedia = array_merge($not, $mult);
-                    $noticiasCompletas[] = $noticiaMultimedia;
-                }
-                return response()->json($noticiasCompletas, 200);
-            }catch(\Exception $exc){
-                return response()->json(['status'=>'NOK','message'=>'Error']);
-                //return $exc;
+        try{
+            $nombreArea = 'Comunicación';
+            $area = Area::where('nombre',$nombreArea)->pluck('id');
+            $users = User::where('area_id',$area)->pluck('id');
+            $noticias = Noticia::whereIn('user_id', $users)->where('ca_estado', true)->get();
+            $noticiasCompletas = [];
+            foreach ($noticias as $noticia) {
+                $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
+                $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
+                $not = ['id' => $noticia->id, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle, 'fecha' => $noticia->vigenciaI, 'prioridad' => $noticia->prioridad];
+                $noticiaMultimedia = array_merge($not, $mult);
+                $noticiasCompletas[] = $noticiaMultimedia;
             }
-        }else{
-            return Response(['data' => 'Unauthorized'],401);
+            $respuesta = ['status' => 'OK','data'=>$noticiasCompletas];
+            return response()->json($respuesta, 200);
+        }catch(\Exception $exc){
+            return response()->json(['status'=>'NOK','message'=>'Error']);
+            //return $exc;
         }
     }
-
-    //!--------------Muestra las noticias desctacadas--------------------
+    //fin. ver post del area de comunicación
+    
+    //inicio. ver post del area de legal 
+    public function aLegal()
+    {
+        try{
+            $nombreArea = 'Legal';
+            $area = Area::where('nombre',$nombreArea)->pluck('id');
+            $users = User::where('area_id',$area)->pluck('id');
+            $noticias = Noticia::whereIn('user_id', $users)->where('ca_estado', true)->get();
+            $noticiasCompletas = [];
+            foreach ($noticias as $noticia) {
+                $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
+                $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
+                $not = ['id' => $noticia->id, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle, 'fecha' => $noticia->vigenciaI, 'prioridad' => $noticia->prioridad];
+                $noticiaMultimedia = array_merge($not, $mult);
+                $noticiasCompletas[] = $noticiaMultimedia;
+            }
+            $respuesta = ['status' => 'OK','data'=>$noticiasCompletas];
+            return response()->json($respuesta, 200);
+        }catch(\Exception $exc){
+            return response()->json(['status'=>'NOK','message'=>'Error']);
+            //return $exc;
+        }
+    }
+    //fin. ver post del area de legal
+    
+    //inicio. mostrar post destacadas
     public function noticiasDestacadas()
     {
         if(Auth::guard('api')->check()){
@@ -64,8 +117,9 @@ class NoticiaController extends Controller
             return Response(['data' => 'Unauthorized'],401);
         }
     }
-
-    //!------------Crear Noticia-----------------
+    //fin. mostrar post destacadas
+    
+    //inicia. crear post
     public function store(Request $request)
     {
         if(Auth::guard('api')->check()){            
@@ -93,7 +147,7 @@ class NoticiaController extends Controller
                 $multimedia->ca_tipo = "create";
                 $multimedia->ca_estado = true;
                 $multimedia->save();
-
+                
                 //mostrar la noticia creada
                 $noti = Noticia::where('ca_estado', true)->find($noticia->id);
                 $multimedia = Multimedia::where('id_noticia',$noticia->id)->first();
@@ -112,8 +166,9 @@ class NoticiaController extends Controller
             return Response(['status' => 'NOK','messagge' => 'Error'],401);
         }
     }
-
-    //!--------------Muestra noticia atravez de ID---------------------
+    //fin. crear post
+    
+    //inicia. buscar post por id
     public function show($id)
     {
         if(Auth::guard('api')->check()){
@@ -134,9 +189,10 @@ class NoticiaController extends Controller
             return Response(['data' => 'Unauthorized'],401);
         }
     }
-
-
-    //!----------Muestra todas las noticias segun area que pertenece el usuario-------------
+    //fin. buscar post por id
+    
+    
+    //inicio. mostrar post de area
     public function noticiasArea()
     {
         if(Auth::guard('api')->check()){
@@ -163,8 +219,9 @@ class NoticiaController extends Controller
             return Response(['data' => 'Unauthorized'],401);
         }
     }
-
-    //!-------------------modifica la noticia------------------
+    //fin. mostrar post de area
+    
+    //inicio. modificar post
     public function update(Request $request, $id)
     {
         if(Auth::guard('api')->check()){            
@@ -197,19 +254,20 @@ class NoticiaController extends Controller
             return Response(['data' => 'Unauthorized'],401);
         }
     }
-
-    //!-----------------Da de baja una noticia-----------------------
+    //fin. modificar post
+    
+    //inicio. eliminar post
     public function destroy($id)
     {
         if(Auth::guard('api')->check()){            
             try{
-            //recopiladno datos de usuario
+                //recopiladno datos de usuario
                 $user = Auth::guard('api')->user();
                 $noticia = Noticia::findOrFail($id);
                 $noticia->ca_idUsuario = $user->id;
                 $noticia->ca_tipo = "delete";
                 $noticia->ca_estado = false;
-
+                
                 $res = $noticia->save();
                 if (!$res == 1) {
                     return 'error';
@@ -228,6 +286,10 @@ class NoticiaController extends Controller
             return Response(['data' => 'Unauthorized'],401);
         }
     }
-//!============== PROXIMAMENTE ================
+    //fin. eliminar post
+    
+    
+    //!============== PROXIMAMENTE ================
     //-----------buscar noticia por nombre-----------
+    
 }

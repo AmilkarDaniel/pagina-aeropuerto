@@ -41,11 +41,12 @@ class UserController extends Controller
     {
         //$input = $request->all();
         // Auth::attempt($input);
-        if (Auth::attempt(['email' => $request->input('usuario'), 'password' => $request->input('contraseña')])) {
+        if (Auth::attempt(['email' => $request->input('usuario'), 'password' => $request->input('passport')])) {
             $user = Auth::user();
-            $token = $user->createToken($user->name)->accessToken;
             $area = Area::where('id', $user->area_id)->first();
             $rol = Rol::where('id', $user->rol_id)->first();
+            $token = $user->createToken($user->name)->accessToken;
+            //return $token;
             return Response(['status' => 'OK','token' => $token,'nombre' => $user->name,'foto' => $user->foto, 'area' => $area->nombre, 'rol' => $rol->tipo],200);
         } else {    
             return Response(['status' => 'NOK','token' => 'Datos Incorrectos'],401);
