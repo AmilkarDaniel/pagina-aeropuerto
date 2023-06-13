@@ -17,8 +17,13 @@ class DatabaseSeeder extends Seeder
     {
         //\App\Models\User::factory(10)->create();
 
-        // $this->call (AreaSeeder::class);
-        // $this->call (RolSeeder::class);
+        $this->call (AeropuertoSeeder::class);
+        $this->call (AreaSeeder::class);
+        $this->call (RolSeeder::class);
+        $this->call (UserSeeder::class);
+        Multimedia::factory(50)->create();
+        Noticia::factory(50)->create();
+        
         // \App\Models\User::factory()->create([
         //     'name' => 'Admin User',
         //     'email' => 'admin@gmail.com',
@@ -31,12 +36,6 @@ class DatabaseSeeder extends Seeder
         //     'ca_tipo' => 'create',
         //     'ca_estado' => true,
         // ]);
-        
-        // $this->call (AeropuertoSeeder::class);
-
-        Multimedia::factory(50)->create();
-        Noticia::factory(50)->create();
-
         // \App\Models\User::factory()->create([
         //     'name' => 'User',
         //     'email' => 'user@gmail.com',
