@@ -176,7 +176,7 @@ class NoticiaController extends Controller
                 $noticia = Noticia::where('ca_estado', true)->find($id);
                 $multimedia = Multimedia::where('id_noticia',$id)->first();
                 $mult = ['multimedia_id'=>$multimedia->id,'imagen'=>$multimedia->archivo];
-                $not = ['id' => $noticia->id, 'titulo'=>$noticia->titulo,'descripcion'=>$noticia->detalle,'fecha'=>$noticia->vigenciaI];
+                $not = ['id' => $noticia->id, 'titulo'=>$noticia->titulo,'descripcion'=>$noticia->detalle,'fecha'=>$noticia->vigenciaI, 'prioridad'=>$noticia->prioridad];
                 $noticiaMultimedia = array_merge($not,$mult);
                 $noticiaCompleta = json_encode($noticiaMultimedia, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
                 $noticiaCompleta = json_decode($noticiaCompleta, false, 512, JSON_UNESCAPED_UNICODE);
@@ -245,6 +245,22 @@ class NoticiaController extends Controller
                 $multimedia->ca_tipo = "update";
                 $multimedia->ca_estado = true;
                 $multimedia->save();
+
+                //inicio.prueba para enviar data de post modificado
+                try{
+                    $noticiaM = Noticia::where('ca_estado', true)->find($noticia->id);
+                    $multimediaM = Multimedia::where('id_noticia',$id)->first();
+                    $mult = ['multimedia_id'=>$multimediaM->id,'imagen'=>$multimediaM->archivo];
+                    $not = ['id' => $noticiaM->id, 'titulo'=>$noticiaM->titulo,'descripcion'=>$noticiaM->detalle,'fecha'=>$noticiaM->vigenciaI, 'prioridad'=>$noticiaM->prioridad];
+                    $noticiaMultimedia = array_merge($not,$mult);
+                    $noticiaCompleta = json_encode($noticiaMultimedia, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    $noticiaCompleta = json_decode($noticiaCompleta, false, 512, JSON_UNESCAPED_UNICODE);
+                    return response()->json($noticiaCompleta, 200);
+                }catch(\Exception $exc){
+                    return response()->json(['status'=>'NOK','message'=>'Error']);
+                }
+                //fin.prueba para enviar data de post modificado
+
                 return response()->json(['status' => 'OK', 'messagge' => 'Noticia actualizada'], 201);
             }catch(\Exception $exc){
                 return response()->json(['status'=>'NOK','message'=>'Error']);
