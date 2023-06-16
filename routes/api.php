@@ -7,6 +7,7 @@ use App\Http\Controllers\API\AreaController;
 use App\Http\Controllers\API\MultimediaController;
 use App\Http\Controllers\API\NoticiaController;
 use App\Http\Controllers\API\AeropuertoController;
+use App\Http\Controllers\API\PersonalController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -37,7 +38,7 @@ Route::controller(AreaController::class)->group(function(){
 
 Route::controller(NoticiaController::class)->group(function(){
     Route::get('noticias','aComunicacion');
-    Route::get('post_legal','aLegal');
+    Route::get('legal','aLegal');
 });
 
 Route::controller(NoticiaController::class)->group(function(){
@@ -68,5 +69,12 @@ Route::controller(AeropuertoController::class)->group(function(){
     Route::post('aeropuerto','store'); //registrar aeropuerto
     Route::put('eliminar/aeropuerto/{id}','destroy'); //dar de bajaaeropuerto
     Route::put('aeropuerto/{id}','update'); //modificar aeropuerto
+});
+
+Route::controller(PersonalController::class)->group(function(){
+    Route::get('personal','index'); //Visualizar al personal de la empresa
+    Route::post('personal_create', 'store'); //registrar personal
+    Route::put('personal_update','update'); //actualizar datos del personal
+    Route::put('personal_delete','delete'); //dar de baja al personal
 });
 

@@ -53,16 +53,29 @@ class UserSeeder extends Seeder
         $user3->save();
 
         $user4 = new User();
-        $user4->name = 'Amilkar';
-        $user4->email = 'Amilkar';
+        $user4->name = 'Recursos';
+        $user4->email = 'Recursos';
         $user4->password = bcrypt('123456');
-        $user4->cargo = 'Amilkar';
-        $user4->foto = 'foto Amilkar';
+        $user4->cargo = 'Recursos';
+        $user4->foto = 'foto Recursos';
         $user4->rol_id = 1;
         $user4->area_id = 1;
         $user4->ca_idUsuario = 1;
         $user4->ca_tipo = 'create';
         $user4->ca_estado= 1;
         $user4->save();
+
+        $user5 = new User();
+        $user5->name = 'Transparencia';
+        $user5->email = 'Transparencia';
+        $user5->password = bcrypt('123456');
+        $user5->cargo = 'Transparencia';
+        $user5->foto = 'foto Transparencia';
+        $user5->rol_id = 1;
+        $user5->area_id = 1;
+        $user5->ca_idUsuario = 1;
+        $user5->ca_tipo = 'create';
+        $user5->ca_estado= 1;
+        $user5->save();
     }
 }

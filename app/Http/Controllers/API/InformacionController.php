@@ -13,6 +13,7 @@ class InformacionController extends Controller
     public function index(){
         if(Auth::guard('api')->check()){
             try{
+                $aero = new Aeropuerto();
                 
             }catch(\Exception $exc){
                 return response()->json(['status'=>'NOK','message'=>'Error']);
@@ -22,6 +23,7 @@ class InformacionController extends Controller
             return Response(['data' => 'Unauthorized'],401);
         }
     }
+    //
 
     public function store($id){
         if(Auth::guard('api')->check()){

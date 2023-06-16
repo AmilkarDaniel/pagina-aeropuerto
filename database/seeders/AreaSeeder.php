@@ -33,5 +33,19 @@ class AreaSeeder extends Seeder
         $area2->ca_tipo = 'create';
         $area2->ca_estado = 1;
         $area2->save();
+
+        $area3 = new Area();
+        $area3->nombre = 'Recursos';
+        $area3->ca_idUsuario = 1;
+        $area3->ca_tipo = 'create';
+        $area3->ca_estado = 1;
+        $area3->save();
+
+        $area4 = new Area();
+        $area4->nombre = 'Transparencia';
+        $area4->ca_idUsuario = 1;
+        $area4->ca_tipo = 'create';
+        $area4->ca_estado = 1;
+        $area4->save();
     }
 }

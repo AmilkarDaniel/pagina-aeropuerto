@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('cargo');
             $table->string('direccion');
+            $table->longText('foto');
             $table->integer('ca_idUsuario');
             $table->string('ca_tipo');
             $table->boolean('ca_estado');
