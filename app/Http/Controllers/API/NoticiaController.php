@@ -92,6 +92,31 @@ class NoticiaController extends Controller
         }
     }
     //fin. ver post del area de legal
+
+    //inicio. ver post del area de legal 
+    public function aRecursos()
+    {
+        try{
+            $nombreArea = 'Recursos';
+            $area = Area::where('nombre',$nombreArea)->pluck('id');
+            $users = User::where('area_id',$area)->pluck('id');
+            $noticias = Noticia::whereIn('user_id', $users)->where('ca_estado', true)->get();
+            $noticiasCompletas = [];
+            foreach ($noticias as $noticia) {
+                $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
+                $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
+                $not = ['id' => $noticia->id, 'nombre' => $noticia->titulo, 'area' => $noticia->detalle, 'regional' => $noticia->prioridad];
+                $noticiaMultimedia = array_merge($not, $mult);
+                $noticiasCompletas[] = $noticiaMultimedia;
+            }
+            $respuesta = ['status' => 'OK','data'=>$noticiasCompletas];
+            return response()->json($respuesta, 200);
+        }catch(\Exception $exc){
+            return response()->json(['status'=>'NOK','message'=>'Error']);
+            //return $exc;
+        }
+    }
+    //fin. ver post del area de legal
     
     //inicio. mostrar post destacadas
     public function noticiasDestacadas()

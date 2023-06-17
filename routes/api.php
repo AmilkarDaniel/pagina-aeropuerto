@@ -39,6 +39,7 @@ Route::controller(AreaController::class)->group(function(){
 Route::controller(NoticiaController::class)->group(function(){
     Route::get('noticias','aComunicacion');
     Route::get('legal','aLegal');
+    Route::get('recursos','aRecursos');
 });
 
 Route::controller(NoticiaController::class)->group(function(){
