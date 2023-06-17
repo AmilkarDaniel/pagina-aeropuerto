@@ -11,7 +11,7 @@ class AeropuertoController extends Controller
 {
     //inicio. listar aeropuertos
     public function index(){
-        if(Auth::guard('api')->check()){
+        // if(Auth::guard('api')->check()){
             try{
                 $aeropuertos = Aeropuerto::where('ca_estado', true)->pluck('nombre');
                 return response()->json($aeropuertos, 200);
@@ -19,9 +19,9 @@ class AeropuertoController extends Controller
                 return response()->json(['status'=>'NOK','message'=>'Error']);
                 //return $exc;
             }
-        }else{
-            return Response(['data' => 'Unauthorized'],401);
-        }
+        // }else{
+        //     return Response(['data' => 'Unauthorized'],401);
+        // }
     }
     //fin. listar aeropuertos
     
