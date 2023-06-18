@@ -21,7 +21,7 @@ class AreaSeeder extends Seeder
         $area->save();
 
         $area1 = new Area();
-        $area1->nombre = 'Comunicación';
+        $area1->nombre = 'Comunicacion';
         $area1->ca_idUsuario = 1;
         $area1->ca_tipo = 'create';
         $area1->ca_estado = 1;
@@ -47,5 +47,12 @@ class AreaSeeder extends Seeder
         $area4->ca_tipo = 'create';
         $area4->ca_estado = 1;
         $area4->save();
+
+        $area5 = new Area();
+        $area5->nombre = 'Aeronautica';
+        $area5->ca_idUsuario = 1;
+        $area5->ca_tipo = 'create';
+        $area5->ca_estado = 1;
+        $area5->save();
     }
 }

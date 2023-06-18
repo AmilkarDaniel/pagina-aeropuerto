@@ -58,8 +58,8 @@ class UserSeeder extends Seeder
         $user4->password = bcrypt('123456');
         $user4->cargo = 'Recursos';
         $user4->foto = 'foto Recursos';
-        $user4->rol_id = 1;
-        $user4->area_id = 1;
+        $user4->rol_id = 2;
+        $user4->area_id = 4;
         $user4->ca_idUsuario = 1;
         $user4->ca_tipo = 'create';
         $user4->ca_estado= 1;
@@ -71,11 +71,24 @@ class UserSeeder extends Seeder
         $user5->password = bcrypt('123456');
         $user5->cargo = 'Transparencia';
         $user5->foto = 'foto Transparencia';
-        $user5->rol_id = 1;
-        $user5->area_id = 1;
+        $user5->rol_id = 2;
+        $user5->area_id = 5;
         $user5->ca_idUsuario = 1;
         $user5->ca_tipo = 'create';
         $user5->ca_estado= 1;
         $user5->save();
+
+        $user6 = new User();
+        $user6->name = 'Aeronautica';
+        $user6->email = 'Aeronautica';
+        $user6->password = bcrypt('123456');
+        $user6->cargo = 'Aeronautica';
+        $user6->foto = 'foto Aeronautica';
+        $user6->rol_id = 2;
+        $user6->area_id = 6;
+        $user6->ca_idUsuario = 1;
+        $user6->ca_tipo = 'create';
+        $user6->ca_estado= 1;
+        $user6->save();
     }
 }
