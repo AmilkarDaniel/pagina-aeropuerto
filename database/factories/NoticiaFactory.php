@@ -22,7 +22,7 @@ class NoticiaFactory extends Factory
             'prioridad'=>$this->faker->randomElement([1, 2, 3]),
             'vigenciaI' => '2023-06-07',
             'vigenciaF' => '2023-07-07',
-            'user_id' => $this->faker->numberBetween(1, 4),
+            'user_id' => 2,
             'ca_idUsuario' => 1,
             'ca_tipo' => 'create',
             'ca_estado' => 1,
