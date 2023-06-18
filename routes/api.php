@@ -40,6 +40,8 @@ Route::controller(NoticiaController::class)->group(function(){
     Route::get('noticias','aComunicacion');
     Route::get('legal','aLegal');
     Route::get('recursos','aRecursos');
+    Route::get('transparencia','aTranparencia');
+    Route::get('aeronautica','aAeronautica');
 });
 
 Route::controller(NoticiaController::class)->group(function(){

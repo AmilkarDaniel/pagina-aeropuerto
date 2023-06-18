@@ -93,7 +93,7 @@ class NoticiaController extends Controller
     }
     //fin. ver post del area de legal
 
-    //inicio. ver post del area de legal 
+    //inicio. ver post del area de Recursos 
     public function aRecursos()
     {
         try{
@@ -105,7 +105,7 @@ class NoticiaController extends Controller
             foreach ($noticias as $noticia) {
                 $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
                 $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
-                $not = ['id' => $noticia->id, 'nombre' => $noticia->titulo, 'area' => $noticia->detalle, 'regional' => $noticia->prioridad];
+                $not = ['id' => $noticia->id, 'titulo' => $noticia->titulo, 'detalle' => $noticia->detalle, 'prioridad' => $noticia->prioridad];
                 $noticiaMultimedia = array_merge($not, $mult);
                 $noticiasCompletas[] = $noticiaMultimedia;
             }
@@ -116,7 +116,57 @@ class NoticiaController extends Controller
             //return $exc;
         }
     }
-    //fin. ver post del area de legal
+    //fin. ver post del area de Recursos
+    
+    //inicio. ver post del area de Transparencia 
+    public function aTranparencia()
+    {
+        try{
+            $nombreArea = 'Transparencia';
+            $area = Area::where('nombre',$nombreArea)->pluck('id');
+            $users = User::where('area_id',$area)->pluck('id');
+            $noticias = Noticia::whereIn('user_id', $users)->where('ca_estado', true)->get();
+            $noticiasCompletas = [];
+            foreach ($noticias as $noticia) {
+                $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
+                $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
+                $not = ['id' => $noticia->id, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle];
+                $noticiaMultimedia = array_merge($not, $mult);
+                $noticiasCompletas[] = $noticiaMultimedia;
+            }
+            $respuesta = ['status' => 'OK','data'=>$noticiasCompletas];
+            return response()->json($respuesta, 200);
+        }catch(\Exception $exc){
+            return response()->json(['status'=>'NOK','message'=>'Error']);
+            //return $exc;
+        }
+    }
+    //fin. ver post del area de Transparencia
+
+    //inicio. ver post del area de Aeronautica 
+    public function aAeronautica()
+    {
+        try{
+            $nombreArea = 'Aeronautica';
+            $area = Area::where('nombre',$nombreArea)->pluck('id');
+            $users = User::where('area_id',$area)->pluck('id');
+            $noticias = Noticia::whereIn('user_id', $users)->where('ca_estado', true)->get();
+            $noticiasCompletas = [];
+            foreach ($noticias as $noticia) {
+                $multimedia = Multimedia::where('id_noticia', $noticia->id)->first();
+                $mult = ['multimedia_id' => $multimedia->id, 'imagen' => $multimedia->archivo];
+                $not = ['id' => $noticia->id, 'titulo' => $noticia->titulo, 'descripcion' => $noticia->detalle, 'fecha' => $noticia->vigenciaI, 'prioridad' => $noticia->prioridad];
+                $noticiaMultimedia = array_merge($not, $mult);
+                $noticiasCompletas[] = $noticiaMultimedia;
+            }
+            $respuesta = ['status' => 'OK','data'=>$noticiasCompletas];
+            return response()->json($respuesta, 200);
+        }catch(\Exception $exc){
+            return response()->json(['status'=>'NOK','message'=>'Error']);
+            //return $exc;
+        }
+    }
+    //fin. ver post del area de Aeronautica
     
     //inicio. mostrar post destacadas
     public function noticiasDestacadas()
