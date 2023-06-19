@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call (AreaSeeder::class);
         $this->call (RolSeeder::class);
         $this->call (UserSeeder::class);
-        Multimedia::factory(50)->create();
-        Noticia::factory(50)->create();
+        //Multimedia::factory(50)->create();
+        //Noticia::factory(50)->create();
         
         // \App\Models\User::factory()->create([
         //     'name' => 'Admin User',
