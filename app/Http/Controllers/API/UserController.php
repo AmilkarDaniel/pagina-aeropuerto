@@ -37,6 +37,7 @@ class UserController extends Controller
     }
     // Fin. Genera token visitante
 
+    //inicio. crear token usuario
     public function loginUser(Request $request)
     {
         //$input = $request->all();
@@ -52,7 +53,11 @@ class UserController extends Controller
             return Response(['status' => 'NOK','token' => 'Datos Incorrectos'],401);
         }
     }
+    //fin. crear token usuario
+    
 
+
+   //inicio. Informacion de usuarios
     public function getUserDetail(): Response
     {
         if(Auth::guard('api')->check()){
@@ -61,7 +66,9 @@ class UserController extends Controller
         }
         return Response(['data' => 'Unauthorized'],401);
     }
+    //fin. Informacion de usuarios
     
+    //inicio. cerrar sesion
     public function userLogout()
     {
         if(Auth::guard('api')->check()){
@@ -72,10 +79,11 @@ class UserController extends Controller
             $accessToken->revoke();
             return Response(['data' => 'Unauthorized', 'message' => 'User logout successfully.'],200);
         } else{
-        return Response(['data' => 'Unauthorized'],401);
+            return Response(['data' => 'Unauthorized'],401);
         }
     }
-
+    //fin. cerrar sesion
+    
     public function tokenActivo(): Response
     {
         if(Auth::guard('api')->check()){
